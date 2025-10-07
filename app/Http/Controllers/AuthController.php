@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -8,21 +7,22 @@ class AuthController extends Controller
 {
     // Data tetap untuk standard user
     private $standardUser = [
-        'email' => 'standard@gmail.com',
+        'email'    => 'standard@gmail.com',
         'username' => 'standard123',
         'password' => 'Standard123',
-        'type' => 'standard'
+        'type'     => 'standard',
     ];
 
     // Data tetap untuk advance user
     private $advanceUser = [
-        'email' => 'advance@gmail.com',
+        'email'    => 'advance@gmail.com',
         'username' => 'advance123',
         'password' => 'Advance123',
-        'type' => 'advance'
+        'type'     => 'advance',
     ];
 
-    public function index(){
+    public function index()
+    {
         return view("halaman-login");
     }
 
@@ -30,7 +30,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'username' => 'required|string',
-            'email' => ['required', 'email'],
+            'email'    => ['required', 'email'],
             'password' => [
                 'required',
                 'string',
@@ -40,16 +40,16 @@ class AuthController extends Controller
                 'regex:/[0-9]/',
             ],
         ], [
-            'password.min' => 'Password harus memiliki minimal 8 karakter',
-            'password.regex' => 'Password harus mengandung huruf kecil, huruf besar, dan angka'
+            'password.min'   => 'Password harus memiliki minimal 8 karakter',
+            'password.regex' => 'Password harus mengandung huruf kecil, huruf besar, dan angka',
         ]);
 
         $username = $request->username;
-        $email = $request->email;
+        $email    = $request->email;
         $password = $request->password;
 
         // Validasi terhadap data tetap
-        $errors = [];
+        $errors   = [];
         $userType = null;
 
         // Cek apakah kredensial sesuai dengan standard user
@@ -60,8 +60,8 @@ class AuthController extends Controller
         }
         // Cek apakah kredensial sesuai dengan advance user
         elseif ($username === $this->advanceUser['username'] &&
-                $email === $this->advanceUser['email'] &&
-                $password === $this->advanceUser['password']) {
+            $email === $this->advanceUser['email'] &&
+            $password === $this->advanceUser['password']) {
             $userType = 'advance';
         }
         // Jika tidak sesuai dengan kedua fixed data
@@ -78,7 +78,7 @@ class AuthController extends Controller
         }
 
         // Jika ada error validasi custom
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             return redirect()->route('login.index')
                 ->withErrors($errors)
                 ->withInput();
@@ -87,14 +87,14 @@ class AuthController extends Controller
         // Login berhasil - redirect berdasarkan tipe user
         session([
             'logged_in' => true,
-            'username' => $username,
-            'user_type' => $userType
+            'username'  => $username,
+            'user_type' => $userType,
         ]);
 
         if ($userType === 'standard') {
-            return redirect()->route('home.standard')->with('success', 'Login Berhasil! Selamat datang Standard User ' . $username);
+            return redirect()->route('home.standard')->with('success', 'Login Berhasil! Selamat datang ' . $username);
         } else {
-            return redirect()->route('home.advance')->with('success', 'Login Berhasil! Selamat datang Advance User ' . $username);
+            return redirect()->route('home.advance')->with('success', 'Login Berhasil! Selamat datang  ' . $username);
         }
     }
 }

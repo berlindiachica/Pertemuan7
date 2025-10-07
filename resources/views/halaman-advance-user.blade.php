@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,19 +11,51 @@
         .gradient-bg {
             background: linear-gradient(135deg, #ec4899, #8b5cf6, #3b82f6);
         }
+
         .card-shadow {
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-        .urgent-important { border-left: 4px solid #ef4444; }
-        .not-urgent-important { border-left: 4px solid #3b82f6; }
-        .urgent-not-important { border-left: 4px solid #f59e0b; }
-        .not-urgent-not-important { border-left: 4px solid #10b981; }
-        .marketing-gradient { background: linear-gradient(135deg, #10b981, #059669); }
-        .employee-gradient { background: linear-gradient(135deg, #f59e0b, #d97706); }
-        .decision-gradient { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-        .time-gradient { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+
+        .urgent-important {
+            border-left: 4px solid #ef4444;
+        }
+
+        .not-urgent-important {
+            border-left: 4px solid #3b82f6;
+        }
+
+        /* Mengubah warna kuning dan hijau menjadi navy */
+        .urgent-not-important {
+            border-left: 4px solid #1e3a8a;
+        }
+
+        /* Navy untuk kuning */
+        .not-urgent-not-important {
+            border-left: 4px solid #1e3a8a;
+        }
+
+        /* Navy untuk hijau */
+        /* Mengubah gradient untuk kartu marketing dan employee */
+        .marketing-gradient {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+        }
+
+        /* Navy gradient */
+        .employee-gradient {
+            background: linear-gradient(135deg, #1e3a8a, #1e40af);
+        }
+
+        /* Navy gradient */
+        .decision-gradient {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+        }
+
+        .time-gradient {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
     </style>
 </head>
+
 <body class="bg-gray-50">
     <div class="min-h-screen">
         <!-- Header -->
@@ -48,30 +81,33 @@
             </div>
         </header>
 
-        @if(session('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-            <strong class="font-bold">Success!</strong>
-            <span class="block sm:inline">{{ session('success') }}</span>
-        </div>
+        @if (session('success'))
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                <strong class="font-bold">Success!</strong>
+                <span class="block sm:inline">{{ session('success') }}</span>
+            </div>
         @endif
 
         <main class="container mx-auto p-6">
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
                 <div class="bg-white rounded-2xl card-shadow p-6">
                     <h3 class="text-gray-500 text-sm font-medium">Total Balance</h3>
-                    <p class="text-3xl font-bold text-gray-800 mt-2">Rp {{ number_format($total_balance, 0, ',', '.') }}</p>
+                    <p class="text-3xl font-bold text-gray-800 mt-2">Rp {{ number_format($total_balance, 0, ',', '.') }}
+                    </p>
                     <p class="text-green-500 text-sm mt-2">+5.2% dari bulan lalu</p>
                 </div>
 
                 <div class="bg-white rounded-2xl card-shadow p-6">
                     <h3 class="text-gray-500 text-sm font-medium">Pemasukan Bulanan</h3>
-                    <p class="text-2xl font-bold text-gray-800 mt-2">Rp {{ number_format($monthly_income, 0, ',', '.') }}</p>
+                    <p class="text-2xl font-bold text-gray-800 mt-2">Rp
+                        {{ number_format($monthly_income, 0, ',', '.') }}</p>
                     <p class="text-green-500 text-sm mt-2">+8% dari bulan lalu</p>
                 </div>
 
                 <div class="bg-white rounded-2xl card-shadow p-6">
                     <h3 class="text-gray-500 text-sm font-medium">Pengeluaran Bulanan</h3>
-                    <p class="text-2xl font-bold text-gray-800 mt-2">Rp {{ number_format($monthly_expense, 0, ',', '.') }}</p>
+                    <p class="text-2xl font-bold text-gray-800 mt-2">Rp
+                        {{ number_format($monthly_expense, 0, ',', '.') }}</p>
                     <p class="text-red-500 text-sm mt-2">+3% dari bulan lalu</p>
                 </div>
 
@@ -95,11 +131,12 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-3">
                             <h3 class="font-semibold text-red-600">Penting & Mendesak</h3>
-                            @foreach($eisenhower_data as $item)
-                                @if($item['category'] == 'urgent_important')
+                            @foreach ($eisenhower_data as $item)
+                                @if ($item['category'] == 'urgent_important')
                                     <div class="urgent-important bg-white p-3 rounded-lg border border-gray-200">
                                         <p class="font-medium">{{ $item['task'] }}</p>
-                                        <p class="text-red-600 font-bold">Rp {{ number_format($item['amount'], 0, ',', '.') }}</p>
+                                        <p class="text-red-600 font-bold">Rp
+                                            {{ number_format($item['amount'], 0, ',', '.') }}</p>
                                         <p class="text-xs text-gray-500">Jatuh tempo: {{ $item['due_date'] }}</p>
                                     </div>
                                 @endif
@@ -108,11 +145,12 @@
 
                         <div class="space-y-3">
                             <h3 class="font-semibold text-blue-600">Penting & Tidak Mendesak</h3>
-                            @foreach($eisenhower_data as $item)
-                                @if($item['category'] == 'not_urgent_important')
+                            @foreach ($eisenhower_data as $item)
+                                @if ($item['category'] == 'not_urgent_important')
                                     <div class="not-urgent-important bg-white p-3 rounded-lg border border-gray-200">
                                         <p class="font-medium">{{ $item['task'] }}</p>
-                                        <p class="text-blue-600 font-bold">Rp {{ number_format($item['amount'], 0, ',', '.') }}</p>
+                                        <p class="text-blue-600 font-bold">Rp
+                                            {{ number_format($item['amount'], 0, ',', '.') }}</p>
                                         <p class="text-xs text-gray-500">Jatuh tempo: {{ $item['due_date'] }}</p>
                                     </div>
                                 @endif
@@ -120,12 +158,15 @@
                         </div>
 
                         <div class="space-y-3">
-                            <h3 class="font-semibold text-yellow-600">Mendesak & Tidak Penting</h3>
-                            @foreach($eisenhower_data as $item)
-                                @if($item['category'] == 'urgent_not_important')
+                            <!-- Mengubah warna kuning menjadi navy -->
+                            <h3 class="font-semibold text-navy-800">Mendesak & Tidak Penting</h3>
+                            @foreach ($eisenhower_data as $item)
+                                @if ($item['category'] == 'urgent_not_important')
                                     <div class="urgent-not-important bg-white p-3 rounded-lg border border-gray-200">
                                         <p class="font-medium">{{ $item['task'] }}</p>
-                                        <p class="text-yellow-600 font-bold">Rp {{ number_format($item['amount'], 0, ',', '.') }}</p>
+                                        <!-- Mengubah warna kuning menjadi navy -->
+                                        <p class="text-navy-800 font-bold">Rp
+                                            {{ number_format($item['amount'], 0, ',', '.') }}</p>
                                         <p class="text-xs text-gray-500">Jatuh tempo: {{ $item['due_date'] }}</p>
                                     </div>
                                 @endif
@@ -133,12 +174,16 @@
                         </div>
 
                         <div class="space-y-3">
-                            <h3 class="font-semibold text-green-600">Tidak Mendesak & Tidak Penting</h3>
-                            @foreach($eisenhower_data as $item)
-                                @if($item['category'] == 'not_urgent_not_important')
-                                    <div class="not-urgent-not-important bg-white p-3 rounded-lg border border-gray-200">
+                            <!-- Mengubah warna hijau menjadi navy -->
+                            <h3 class="font-semibold text-navy-800">Tidak Mendesak & Tidak Penting</h3>
+                            @foreach ($eisenhower_data as $item)
+                                @if ($item['category'] == 'not_urgent_not_important')
+                                    <div
+                                        class="not-urgent-not-important bg-white p-3 rounded-lg border border-gray-200">
                                         <p class="font-medium">{{ $item['task'] }}</p>
-                                        <p class="text-green-600 font-bold">Rp {{ number_format($item['amount'], 0, ',', '.') }}</p>
+                                        <!-- Mengubah warna hijau menjadi navy -->
+                                        <p class="text-navy-800 font-bold">Rp
+                                            {{ number_format($item['amount'], 0, ',', '.') }}</p>
                                         <p class="text-xs text-gray-500">Jatuh tempo: {{ $item['due_date'] }}</p>
                                     </div>
                                 @endif
@@ -157,32 +202,34 @@
                 <div class="w-full bg-gray-200 rounded-full h-4">
                     <div class="gradient-bg h-4 rounded-full" style="width: {{ ($savings / 10000000) * 100 }}%"></div>
                 </div>
-                <p class="text-gray-600 text-sm mt-2">Sisa yang dibutuhkan: Rp {{ number_format(10000000 - $savings, 0, ',', '.') }}</p>
+                <p class="text-gray-600 text-sm mt-2">Sisa yang dibutuhkan: Rp
+                    {{ number_format(10000000 - $savings, 0, ',', '.') }}</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-8">
                 <div class="marketing-gradient text-white rounded-2xl card-shadow p-6">
                     <h3 class="text-sm font-medium">Leads Baru</h3>
                     <p class="text-3xl font-bold mt-2">{{ $marketing_data['leads'] ?? 150 }}</p>
-                    <p class="text-green-200 text-sm mt-2">+12% dari bulan lalu</p>
+                    <p class="text-blue-200 text-sm mt-2">+12% dari bulan lalu</p>
                 </div>
 
                 <div class="marketing-gradient text-white rounded-2xl card-shadow p-6">
                     <h3 class="text-sm font-medium">Konversi Penjualan</h3>
                     <p class="text-3xl font-bold mt-2">{{ $marketing_data['conversions'] ?? 45 }}%</p>
-                    <p class="text-green-200 text-sm mt-2">Target: 50%</p>
+                    <p class="text-blue-200 text-sm mt-2">Target: 50%</p>
                 </div>
 
                 <div class="marketing-gradient text-white rounded-2xl card-shadow p-6">
                     <h3 class="text-sm font-medium">ROI Kampanye</h3>
-                    <p class="text-3xl font-bold mt-2">Rp {{ number_format($marketing_data['roi'] ?? 2500000, 0, ',', '.') }}</p>
-                    <p class="text-green-200 text-sm mt-2">+15% pertumbuhan</p>
+                    <p class="text-3xl font-bold mt-2">Rp
+                        {{ number_format($marketing_data['roi'] ?? 2500000, 0, ',', '.') }}</p>
+                    <p class="text-blue-200 text-sm mt-2">+15% pertumbuhan</p>
                 </div>
 
                 <div class="marketing-gradient text-white rounded-2xl card-shadow p-6">
                     <h3 class="text-sm font-medium">Engagement Sosmed</h3>
                     <p class="text-3xl font-bold mt-2">{{ $marketing_data['engagement'] ?? 1200 }}</p>
-                    <p class="text-green-200 text-sm mt-2">Interaksi harian</p>
+                    <p class="text-blue-200 text-sm mt-2">Interaksi harian</p>
                 </div>
             </div>
 
@@ -236,7 +283,7 @@
                     <div class="decision-gradient text-white rounded-lg p-4">
                         <h3 class="font-semibold mb-2">Rekomendasi Keputusan</h3>
                         <div class="space-y-2">
-                            @foreach($decision_data['recommendations'] ?? ['Investasi Marketing', 'Rekrut Karyawan Baru', 'Optimasi Waktu'] as $rec)
+                            @foreach ($decision_data['recommendations'] ?? ['Investasi Marketing', 'Rekrut Karyawan Baru', 'Optimasi Waktu'] as $rec)
                                 <div class="flex justify-between bg-white/20 rounded p-2">
                                     <span>{{ $rec }}</span>
                                     <span class="text-green-200">Prioritas Tinggi</span>
@@ -256,8 +303,7 @@
             type: 'line',
             data: {
                 labels: @json($monthly_data['labels']),
-                datasets: [
-                    {
+                datasets: [{
                         label: 'Pemasukan',
                         data: @json($monthly_data['income']),
                         borderColor: '#8b5cf6',
@@ -300,11 +346,11 @@
         });
 
         const marketingCtx = document.getElementById('marketingChart').getContext('2d');
-        const marketingChart = new Chart(marketingCtx, {  type: 'line',
+        const marketingChart = new Chart(marketingCtx, {
+            type: 'line',
             data: {
                 labels: @json($monthly_data['labels']),
-                datasets: [
-                    {
+                datasets: [{
                         label: 'Pemasukan',
                         data: @json($monthly_data['income']),
                         borderColor: '#8b5cf6',
@@ -347,4 +393,5 @@
         });
     </script>
 </body>
+
 </html>
